@@ -1,12 +1,13 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import store from "@/store";
-import { getStore } from '@/utils/storage';
+import {
+  getStore
+} from '@/utils/storage';
 Vue.use(VueRouter);
 
-const routes = [
-  {
-    path: "/Login",
+const routes = [{
+    path: "/",
     meta: {
       title: "登录"
     },
@@ -16,12 +17,32 @@ const routes = [
   },
   // 首页
   {
-    path: "/",
+    path: "/Index",
     meta: {
       title: "首页"
     },
     component: function (resolve) {
       require(["@/views/Index"], resolve);
+    }
+  },
+  // 行情大盘
+  {
+    path: "/Market",
+    meta: {
+      title: "行情大盘"
+    },
+    component: function (resolve) {
+      require(["@/views/Market"], resolve);
+    }
+  },
+  // 交易大厅
+  {
+    path: "/Deal",
+    meta: {
+      title: "交易大厅"
+    },
+    component: function (resolve) {
+      require(["@/views/Deal"], resolve);
     }
   },
   // 我的
@@ -34,6 +55,26 @@ const routes = [
       require(["@/views/My"], resolve);
     }
   },
+  // 公告
+  {
+    path: "/NoticeList",
+    meta: {
+      title: "公告"
+    },
+    component: function (resolve) {
+      require(["@/views/NoticeList"], resolve);
+    }
+  },
+  // 公告消息
+  {
+    path: "/NoticeDetails",
+    meta: {
+      title: "公告消息"
+    },
+    component: function (resolve) {
+      require(["@/views/NoticeDetails"], resolve);
+    }
+  },
 ];
 const router = new VueRouter({
   routes
@@ -43,22 +84,25 @@ router.beforeEach((to, from, next) => {
   if (to.meta && to.meta.title) {
     document.title = to.meta.title;
   }
-  if (to.path === '/Login') {
-    store.commit("setTabbarIndex", 2);
+  if (to.path === '/') {
+    store.commit("setTabbarIndex", 5);
     next();
   } else {
     let token = getStore('token');
-    console.log(token);
     if (token === null || token === '') {
-         store.commit("setTabbarIndex", 2);
-          router.push("/Login");
+      store.commit("setTabbarIndex", 5);
+      router.push("/");
     } else {
-      if (to.path === "/") {
-        store.commit("setTabbarIndex", 0);
-      } else if (to.path === "/My") {
+      if (to.path === "/Index") {
         store.commit("setTabbarIndex", 1);
-      } else {
+      } else if (to.path === "/Market") {
         store.commit("setTabbarIndex", 2);
+      } else if (to.path === "/Deal") {
+        store.commit("setTabbarIndex", 3);
+      } else if (to.path === "/My") {
+        store.commit("setTabbarIndex", 4);
+      } else {
+        store.commit("setTabbarIndex", 0);
       }
       next();
     }
@@ -82,7 +126,7 @@ router.beforeEach((to, from, next) => {
 
 //重写router 防止路由跳转报错
 const originalPush = VueRouter.prototype.push
-VueRouter.prototype.push = function push (location, onResolve, onReject) {
+VueRouter.prototype.push = function push(location, onResolve, onReject) {
   if (onResolve || onReject) return originalPush.call(this, location, onResolve, onReject)
   return originalPush.call(this, location).catch(err => err)
 }

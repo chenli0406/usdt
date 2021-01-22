@@ -2,14 +2,15 @@
   <div>
      <van-nav-bar
       :title="navData.title"
-      left-text=""
+       left-text=""
       :right-text="navData.rightText"
       :fixed="true"
       @click-left="onClickLeft"
       @click-right="onClickRight"
     >
      <template #left>
-        <van-icon name="cross" size="16" />
+        <van-icon v-if="navData.leftIcon" name="arrow-left"  />
+        <img v-else  :src="navData.leftImg" />
      </template>
       <template #right  v-if="navData.rightIcon">
         <svg-icon v-if="navData.rightSvg" :icon-class="navData.rightSvg" class="svgIcon" />
@@ -31,7 +32,10 @@ export default {
   },
   methods: {
     onClickLeft(){
-      this.$router.go(-1);
+      if(this.navData.leftIcon != false){
+           this.$router.go(-1);
+      }
+     
     },
     onClickRight(){
       this.$emit('clickRight');

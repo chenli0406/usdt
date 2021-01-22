@@ -3,7 +3,17 @@
     <div class="login"></div>
     <div class="from">
       <div class="input">
-        <van-field v-model="form.mobile" type="number" :left-icon="phoneIcon" maxlength="11" placeholder="请输入手机号" />
+        <van-field
+         v-model="form.mobile"
+          type="number" 
+         :left-icon="phoneIcon"   
+         :right-icon="rightIcon"
+         maxlength="11" 
+         placeholder="请输入账号" 
+         @click-right-icon="clear" 
+         @focus="focus"
+         @blur="blur"
+         />
         <van-field v-model="form.code" type="digit" :left-icon="passwoedIcon" maxlength="6" placeholder="请输入验证码">
           <template #button>
             <van-button class="send-btn" :class="isSendCode ? 'disable' : ''" @click="onSendCode">
@@ -11,13 +21,13 @@
             </van-button>
           </template>
         </van-field>
-        <button class="primary-btn" @click="onClick"> 确认登录 </button>
+        <van-button class="primary-btn" @click="onClick"> 确认登录 </van-button>
       </div>
-      <button class="register-btn" @click="gotoRegister"> 没有账号，去注册 </button>
+      <!-- <van-button class="register-btn" @click="gotoRegister"> 没有账号，去注册 </van-button> -->
     </div>
 
     <div class="bottom">
-      <span>登录即代表你已同意</span>
+      <span>登录注册即代表你已同意</span>
       <span style="color: #4f75fe"> 《隐私政策》 </span>
       <span>和</span>
       <span style="color: #4f75fe"> 《服务协议》 </span>
@@ -34,6 +44,7 @@ export default {
         mobile: '',
         code: '',
       },
+      rightIcon: "",
       isSendCode: false,
       codeTime: 0,
       aVisiable: false,
@@ -53,20 +64,27 @@ export default {
         return;
       }
       this.setStore('token', '123');
-      this.$router.push('/');
+      this.$router.push('/Index');
       return false;
     },
     onSendCode() {},
     gotoRegister() {
       this.$router.push('/Register');
     },
+    clear(){
+       this.form.mobile = "";
+        this.rightIcon = ""
+    },
+    focus(){
+       this.rightIcon = "cross"
+    },
+    blur(){
+    }
   },
 };
 </script>
 <style lang="scss" scoped>
 .from {
-  // background: url('../assets/img/login-from.png') no-repeat;
-  // background-size: 100% 100%;
   background-color: #fff;
   box-shadow: 0px 0px 40px 0px rgba(184, 168, 205, 0.42);
   position: absolute;
@@ -75,20 +93,26 @@ export default {
   top: 20px;
   bottom: 0;
   margin: auto;
-  @media screen and (min-width:280px) and(max-width:1200px){
+  border-radius: 20px;
+  height: 32vh;
+   @media screen and (min-width:337px){
     width: 80%;
-    height: 32vh;
-    border-radius: 35px;
+  }
+  @media screen and (min-width:576px){
+    width: 80%;
+  }
+  @media screen and (min-width:768px){
+    width: 80%;
   }
   @media screen and (min-width: 992px) {
-    width: 70%;
-    height: 32vh;
-    border-radius: 25px;
+    width: 40%;
   }
   @media screen and (min-width: 1200px) {
-    width: 60%;
-    height: 40vh;
-    border-radius: 10px;
+    width: 30%;
+    height: 36vh;
+  }
+  .input{
+    margin-top: 20px;
   }
 }
 .login {
@@ -103,10 +127,13 @@ export default {
 }
 .van-cell {
   background-color: transparent !important;
-  font-size: 6px;
+  width: 80%;
   color: #999999;
   margin: 0 auto;
+  padding: 20px 0px 4px 0px;
   border-bottom: 0.02667rem solid #ebedf0;
+  display: flex;
+  align-items: center;
 }
 .van-cell::after {
   border: none;
@@ -123,34 +150,11 @@ export default {
   right: 0;
   text-align: center;
   font-family: PingFang SC;
-  @media screen and (min-width: 280px) {
-    font-size: 10px;
-    height: 50px;
-    line-height: 50px;
-    width: 60%;
-    bottom: -40px;
-  }
-  @media screen and (min-width: 337px) {
-    font-size: 10px;
-    height: 50px;
-    line-height: 50px;
-    width: 60%;
-    bottom: -30px;
-  }
-  @media screen and (min-width: 576px) {
-    font-size: 16px;
-    height: 50px;
-    line-height: 50px;
-    width: 60%;
-    bottom: -20px;
-  }
-  @media screen and (min-width: 1200px) {
-    font-size: 6px;
-    height: 20px;
-    line-height: 20px;
-    width: 30%;
-    bottom: -10px;
-  }
+  font-size: 14px;
+  height: 40px;
+  line-height: 40px;
+  width: 60%;
+  bottom: -20px;
 }
 .bottom {
   position: fixed;
@@ -158,23 +162,8 @@ export default {
   right: 0;
   margin: auto;
   text-align: center;
-  color: #999999;
   padding: 0 10px;
-  @media screen and (min-width: 280px) {
-    bottom: 40px;
-  }
-  @media screen and (min-width: 337px) {
-    bottom: 40px;
-  }
-  @media screen and (min-width: 576px) {
-    bottom: 40px;
-  }
-   @media screen and (min-width: 768px) {
-     bottom: 10px;
-  }
-  @media screen and (min-width: 1200px) {
-    bottom: 4px;
-  }
+  bottom: 40px;
 }
 .register-btn {
   position: absolute;
@@ -185,24 +174,20 @@ export default {
   left: 0;
   right: 0;
   text-align: center;
-  @media screen and (min-width: 337px) {
-    font-size: 14px;
-    bottom: -50px;
-  }
-  @media screen and (min-width: 576px) {
-    font-size: 14px;
-    bottom: -60px;
-  }
-  @media screen and (min-width: 768px) {
-     font-size: 12px;
-     bottom: -50px;
-  }
-  @media screen and (min-width: 1200px) {
-    font-size: 6px;
-    bottom: -25px;
-  }
+  font-size: 14px;
+  bottom: -60px;
 }
 .van-button--default{
   background-color: transparent;
+}
+.van-button{
+  line-height: 0px;
+}
+::v-deep  .van-field__right-icon{
+  font-size: 40px;
+}
+::v-deep  .van-icon__image{
+  width: 1.2em;
+  height: 1.2em;
 }
 </style>

@@ -1,15 +1,27 @@
 <template>
   <div id="app">
     <router-view />
-    <van-tabbar route v-model="active" active-color="#000" inactive-color="#999999" v-show="tabbarIndex <= 1">
-      <van-tabbar-item name="index" replace to="/">
-        <span>首页</span>
+    <van-tabbar route v-model="active" active-color="#000" inactive-color="#999999" v-show="tabbarIndex > 0 && tabbarIndex !=5">
+      <van-tabbar-item name="index" replace to="/Index">
+         <span>首页</span>
         <template #icon="props">
           <img :src="props.active ? index.active : index.default" />
         </template>
       </van-tabbar-item>
+      <van-tabbar-item name="market" replace to="/Market">
+       <span>行情大盘</span>
+        <template #icon="props">
+          <img :src="props.active ? market.active : market.default" />
+        </template>
+      </van-tabbar-item>
+      <van-tabbar-item name="deal" replace to="/Deal">
+       <span>交易大厅</span>
+        <template #icon="props">
+          <img :src="props.active ? deal.active : deal.default" />
+        </template>
+      </van-tabbar-item>
       <van-tabbar-item name="my" replace to="/My">
-        <span>我的</span>
+       <span>我的</span>
         <template #icon="props">
           <img :src="props.active ? home.active : home.default" />
         </template>
@@ -35,8 +47,19 @@ export default {
         default: require('@/assets/icons/mine.png'),
         active: require('@/assets/icons/mine-active.png'),
       },
+      market: {
+        default: require('@/assets/icons/market.png'),
+        active: require('@/assets/icons/market-active.png'),
+      },
+      deal: {
+        default: require('@/assets/icons/deal.png'),
+        active: require('@/assets/icons/deal-active.png'),
+      }
     };
   },
+  created(){
+    console.log(this.tabbarIndex);
+  }
 };
 </script>
 
@@ -52,11 +75,9 @@ body {
 body,
 html,
 #app {
-  min-width: 100%;
-  // min-height: 100vh;
-  background-color: #f9fafc;
+ background-color: #fff;
   &.bg {
-    background-color: #f9fafc;
+   background-color: #fff;
   }
   @media screen and (min-width: 280px) {
     font-size: 10px;
@@ -68,26 +89,24 @@ html,
     font-size: 12px;
   }
   @media screen and (min-width: 768px) {
-    font-size: 10px;
+    font-size: 12px;
   }
   @media screen and (min-width: 992px) {
     font-size: 10px;
   }
   @media screen and (min-width: 1200px) {
-    font-size: 6px;
+    font-size: 16px;
+    width: 1400px;
+    margin: 0 auto;
   }
- @media screen and (min-width:280px) and(max-width:576px){
-   font-size: 10px;
- }
 }
 .van-tabbar {
-  height: 4rem !important;
   z-index: 9999;
+  border-radius: 26px 26px 0px 0px;
+  height: 100px;
 }
 .van-tabbar-item__icon img {
-  margin-bottom: 10px;
-  width: 50px;
-  height: 50px !important;
+  padding: 2px 0;
 }
 .van-tabbar-item--active {
   font-size: 20px;
@@ -95,25 +114,13 @@ html,
 .van-tabbar-item {
   font-size: 20px;
   color: #999999;
+  margin: 10px 0;
 }
 .van-hairline--top-bottom::after,
 .van-hairline-unset--top-bottom::after {
   border-width: 0px !important;
 }
-.van-toast--html,
-.van-toast__text {
-  padding-top: 10px !important;
-}
-
-.van-toast {
-  padding: 20px !important;
-  min-width: 3.4rem !important;
-}
 .van-nav-bar {
-  line-height: 100px !important;
-  .van-nav-bar__content {
-    height: 100px;
-  }
   .van-icon {
     color: #000 !important;
   }
@@ -125,14 +132,18 @@ html,
     white-space: normal;
   }
   .van-nav-bar__title {
-    font-size: 20px !important;
     color: #000 !important;
-  }
-  .van-nav-bar__left {
-    padding-left: 40px;
   }
   .van-nav-bar__right {
     padding-right: 40px;
   }
+}
+.main-box{
+  margin-top: 60px;
+  padding: 0 20px;
+}
+
+ul{
+  list-style: none;
 }
 </style>
