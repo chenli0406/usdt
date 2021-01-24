@@ -95,9 +95,9 @@ html,
     font-size: 10px;
   }
   @media screen and (min-width: 1200px) {
-    font-size: 16px;
-    width: 1400px;
-    margin: 0 auto;
+       font-size: 14px;
+       margin: 0 100px;
+      background-color: #F4F6F8;
   }
 }
 .van-tabbar {

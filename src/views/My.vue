@@ -19,10 +19,21 @@
           <span style="margin-left: 10px">设置</span>
         </div>
       </div>
-      <div class="bg-box"></div>
+      <div class="bg-box">
+        <div class="bg-item">
+          <div>
+            <span>钱包余额</span>
+            <span>钱包明细 > </span>
+          </div>
+         <div class="item">
+            <span>2345.8 USDT</span>
+            <van-button class="primary-btn" @click="onClick"> 立即提现 </van-button>
+         </div>
+        </div>
+      </div>
     </div>
-
     <div class="menu">
+      <div style="margin-top: 10px; height: 20px"></div>
       <div class="menu-box">
         <div class="menu-item" v-for="(item, index) in list" :key="index">
           <van-image width="50px" :src="item.imgPath" @click="gotoMenu(item.url)">
@@ -38,7 +49,7 @@
 </template>
 
 <script>
-import NavBar from '../components/navBar/index';
+import NavBar from "../components/navBar/index";
 export default {
   components: {
     NavBar,
@@ -47,29 +58,29 @@ export default {
     return {
       navData: {
         leftIcon: false,
-        leftImg: require('@/assets/img/my-logo.png'),
+        leftImg: require("@/assets/img/my-logo.png"),
       },
-      imgPath: require('@/assets/img/3.png'),
+      imgPath: require("@/assets/img/3.png"),
       list: [
         {
-          url: '/MyWallet',
-          imgPath: require('@/assets/img/menu-1.png'),
-          title: '待付款',
+          url: "/MyWallet",
+          imgPath: require("@/assets/img/menu-1.png"),
+          title: "待付款",
         },
         {
-          url: '/InviteUser',
-          imgPath: require('@/assets/img/menu-2.png'),
-          title: '待确认',
+          url: "/InviteUser",
+          imgPath: require("@/assets/img/menu-2.png"),
+          title: "待确认",
         },
         {
-          url: '/MerchantFrom',
-          imgPath: require('@/assets/img/menu-3.png'),
-          title: '已完成',
+          url: "/MerchantFrom",
+          imgPath: require("@/assets/img/menu-3.png"),
+          title: "已完成",
         },
         {
-          url: '/Audit',
-          imgPath: require('@/assets/img/menu-4.png'),
-          title: 'USDT收货地址',
+          url: "/Audit",
+          imgPath: require("@/assets/img/menu-4.png"),
+          title: "USDT收货地址",
         },
       ],
     };
@@ -80,11 +91,12 @@ export default {
       this.$router.push(val);
     },
     gotoSet() {
-      this.$router.push('/PersonalData');
+      this.$router.push("/PersonalData");
     },
     clickRight() {
-      this.$router.push('/Set');
+      this.$router.push("/Set");
     },
+    onClick() {},
   },
 };
 </script>
@@ -121,14 +133,16 @@ export default {
     background: #f4f6f8;
     border-radius: 50px 50px 0px 0px;
     .menu-box {
-      padding: 30px;
+      padding: 20px;
       display: flex;
       justify-content: space-between;
-      border-radius: 30px;
-      margin-top: 50px;
+      border-radius: 20px;
+      margin: 0 20px;
+      margin-top: 60px;
+      background-color: #fff;
       .menu-item {
+        text-align: center;
         .menu-title {
-          text-align: center;
           margin: 10px 0;
           font-weight: 500;
           color: #3b424c;
@@ -138,9 +152,31 @@ export default {
   }
 }
 .bg-box {
-  background: url('../assets/img/my-bg.png') no-repeat;
-  height: 16vh;
+  background: url("../assets/img/my-bg.png") no-repeat;
+  background-size: 100% 100%;
+
   position: relative;
   top: 20px;
+  .bg-item {
+    padding: 20px;
+    color: #fff;
+    div{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .item{
+      font-size: 16px;
+      padding: 20px 0 10px 0;
+    }
+  }
+}
+.primary-btn {
+  background: #ffffff;
+  border-radius: 20px;
+  color: #4f75fe;
+  height: 30px;
+  font-size: 12px;
+  font-weight: 600;
 }
 </style>

@@ -75,6 +75,16 @@ const routes = [{
       require(["@/views/NoticeDetails"], resolve);
     }
   },
+   // 确认订单
+   {
+    path: "/Order",
+    meta: {
+      title: "确认订单"
+    },
+    component: function (resolve) {
+      require(["@/views/Order"], resolve);
+    }
+  },
 ];
 const router = new VueRouter({
   routes

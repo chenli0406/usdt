@@ -95,7 +95,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .content {
-  overflow-y: hidden;
   height: 100%;
   .head-portrait {
     .van-swipe {
@@ -167,7 +166,7 @@ export default {
 }
 .content-box {
   margin: 20px 0;
-  padding: 10px 20px;
+  padding: 10px 20px 100px 20px;
   background: #f4f6f8;
   border-radius: 30px 30px 0px 0px;
   overflow: hidden;
