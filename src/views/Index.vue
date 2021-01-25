@@ -27,7 +27,7 @@
           <van-col span="12">
             <img src="../assets/img/1.png" />
           </van-col>
-          <van-col span="12">
+          <van-col span="12" @click="gotoFastMoney">
             <img src="../assets/img/2.png" />
           </van-col>
         </van-row>
@@ -89,6 +89,9 @@ export default {
     },
     gotoNoticeList(){
        this.$router.push('/NoticeList');
+    },
+    gotoFastMoney(){
+      this.$router.push('/FastMoney');
     }
   },
 };

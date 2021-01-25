@@ -4,7 +4,7 @@
     <div class="main-box">
       <div class="head_box">
         <div class="top-info">
-          <van-image round width="120px" :src="imgPath">
+          <van-image round width="120px" :src="imgPath" @click="updateHead">
             <template v-slot:loading>
               <van-loading type="spinner" size="20" />
             </template>
@@ -23,11 +23,12 @@
         <div class="bg-item">
           <div>
             <span>钱包余额</span>
-            <span>钱包明细 > </span>
+            <span @click="gotoWallet">钱包明细 > </span>
           </div>
          <div class="item">
             <span>2345.8 USDT</span>
-            <van-button class="primary-btn" @click="onClick"> 立即提现 </van-button>
+            <!-- <van-button class="primary-btn" @click="onClick"> 立即提现 </van-button> -->
+            <van-button class="primary-btn" @click="onClick"> 快速充币 </van-button>
          </div>
         </div>
       </div>
@@ -63,24 +64,34 @@ export default {
       imgPath: require("@/assets/img/3.png"),
       list: [
         {
-          url: "/MyWallet",
+          url: "/OrderManage?tab=1",
+          imgPath: require("@/assets/img/menu-5.png"),
+          title: "已挂单",
+        },
+        {
+          url: "/OrderManage?tab=1",
           imgPath: require("@/assets/img/menu-1.png"),
           title: "待付款",
         },
         {
-          url: "/InviteUser",
+          url: "/OrderManage?tab=2",
           imgPath: require("@/assets/img/menu-2.png"),
           title: "待确认",
         },
         {
-          url: "/MerchantFrom",
+          url: "/OrderManage?tab=3",
           imgPath: require("@/assets/img/menu-3.png"),
           title: "已完成",
         },
-        {
-          url: "/Audit",
-          imgPath: require("@/assets/img/menu-4.png"),
-          title: "USDT收货地址",
+        // {
+        //   url: "/Address",
+        //   imgPath: require("@/assets/img/menu-4.png"),
+        //   title: "USDT收货地址",
+        // },
+         {
+          url: "/OrderManage?tab=3",
+          imgPath: require("@/assets/img/menu-6.png"),
+          title: "收款账号",
         },
       ],
     };
@@ -91,12 +102,19 @@ export default {
       this.$router.push(val);
     },
     gotoSet() {
-      this.$router.push("/PersonalData");
+        this.$router.push("/Set");
     },
-    clickRight() {
-      this.$router.push("/Set");
+    onClick() {
+      // this.$router.push('/FastMoney');
+       this.$router.push('/QuickTopUp');
+      
     },
-    onClick() {},
+    updateHead(){
+      this.$router.push("/UpdateHead");
+    },
+    gotoWallet(){
+      this.$router.push("/Wallet");
+    }
   },
 };
 </script>
@@ -136,11 +154,13 @@ export default {
       padding: 20px;
       display: flex;
       justify-content: space-between;
+      flex-wrap: wrap;
       border-radius: 20px;
       margin: 0 20px;
       margin-top: 60px;
       background-color: #fff;
       .menu-item {
+        width: 25%;
         text-align: center;
         .menu-title {
           margin: 10px 0;

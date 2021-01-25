@@ -1,27 +1,27 @@
 <template>
   <div id="app">
     <router-view />
-    <van-tabbar route v-model="active" active-color="#000" inactive-color="#999999" v-show="tabbarIndex > 0 && tabbarIndex !=5">
+    <van-tabbar route v-model="active" active-color="#000" inactive-color="#999999" v-show="tabbarIndex > 0 && tabbarIndex != 5">
       <van-tabbar-item name="index" replace to="/Index">
-         <span>首页</span>
+        <span>首页</span>
         <template #icon="props">
           <img :src="props.active ? index.active : index.default" />
         </template>
       </van-tabbar-item>
       <van-tabbar-item name="market" replace to="/Market">
-       <span>行情大盘</span>
+        <span>行情大盘</span>
         <template #icon="props">
           <img :src="props.active ? market.active : market.default" />
         </template>
       </van-tabbar-item>
       <van-tabbar-item name="deal" replace to="/Deal">
-       <span>交易大厅</span>
+        <span>交易大厅</span>
         <template #icon="props">
           <img :src="props.active ? deal.active : deal.default" />
         </template>
       </van-tabbar-item>
       <van-tabbar-item name="my" replace to="/My">
-       <span>我的</span>
+        <span>我的</span>
         <template #icon="props">
           <img :src="props.active ? home.active : home.default" />
         </template>
@@ -54,12 +54,12 @@ export default {
       deal: {
         default: require('@/assets/icons/deal.png'),
         active: require('@/assets/icons/deal-active.png'),
-      }
+      },
     };
   },
-  created(){
+  created() {
     console.log(this.tabbarIndex);
-  }
+  },
 };
 </script>
 
@@ -75,9 +75,9 @@ body {
 body,
 html,
 #app {
- background-color: #fff;
+  background-color: #fff;
   &.bg {
-   background-color: #fff;
+    background-color: #fff;
   }
   @media screen and (min-width: 280px) {
     font-size: 10px;
@@ -93,11 +93,21 @@ html,
   }
   @media screen and (min-width: 992px) {
     font-size: 10px;
+     .van-dialog {
+      text-align: center;
+      width: 50%;
+      font-size: 14px;
+    }
   }
   @media screen and (min-width: 1200px) {
-       font-size: 14px;
-       margin: 0 100px;
-      background-color: #F4F6F8;
+    font-size: 14px;
+    margin: 0 100px;
+    background-color: #f4f6f8;
+    .van-dialog {
+      text-align: center;
+      width: 40%;
+      font-size: 14px;
+    }
   }
 }
 .van-tabbar {
@@ -134,16 +144,16 @@ html,
   .van-nav-bar__title {
     color: #000 !important;
   }
-  .van-nav-bar__right {
-    padding-right: 40px;
-  }
 }
-.main-box{
+.main-box {
   margin-top: 60px;
   padding: 0 20px;
 }
 
-ul{
+ul {
   list-style: none;
+}
+ .van-hairline--bottom::after{
+  border-bottom: none!important;
 }
 </style>
