@@ -27,8 +27,8 @@
           </div>
          <div class="item">
             <span>2345.8 USDT</span>
-            <!-- <van-button class="primary-btn" @click="onClick"> 立即提现 </van-button> -->
-            <van-button class="primary-btn" @click="onClick"> 快速充币 </van-button>
+            <van-button class="primary-btn" @click="onClick"> 立即提现 </van-button>
+            <!-- <van-button class="primary-btn" @click="onClick"> 快速充币 </van-button> -->
          </div>
         </div>
       </div>
@@ -69,17 +69,17 @@ export default {
           title: "已挂单",
         },
         {
-          url: "/OrderManage?tab=1",
+          url: "/OrderManage?tab=2",
           imgPath: require("@/assets/img/menu-1.png"),
           title: "待付款",
         },
         {
-          url: "/OrderManage?tab=2",
+          url: "/OrderManage?tab=3",
           imgPath: require("@/assets/img/menu-2.png"),
           title: "待确认",
         },
         {
-          url: "/OrderManage?tab=3",
+          url: "/OrderManage?tab=4",
           imgPath: require("@/assets/img/menu-3.png"),
           title: "已完成",
         },
@@ -89,7 +89,7 @@ export default {
         //   title: "USDT收货地址",
         // },
          {
-          url: "/OrderManage?tab=3",
+          url: "/Account",
           imgPath: require("@/assets/img/menu-6.png"),
           title: "收款账号",
         },
@@ -105,8 +105,8 @@ export default {
         this.$router.push("/Set");
     },
     onClick() {
-      // this.$router.push('/FastMoney');
-       this.$router.push('/QuickTopUp');
+      this.$router.push('/FastMoney');
+      //this.$router.push('/QuickTopUp');
       
     },
     updateHead(){

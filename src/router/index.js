@@ -231,6 +231,15 @@ const routes = [{
       require(["@/views/QuickTopUp"], resolve);
     }
   },
+  {
+    path: "/Account",
+    meta: {
+      title: "提现账号"
+    },
+    component: function (resolve) {
+      require(["@/views/Account"], resolve);
+    }
+  },
 ];
 const router = new VueRouter({
   routes

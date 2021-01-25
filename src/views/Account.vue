@@ -1,14 +1,13 @@
 <template>
   <div class="content">
-    <nav-bar :nav-data="navData"></nav-bar>
+    <nav-bar :nav-data="navData" @clickRight="clickRight"></nav-bar>
     <div class="main-box">
       <div class="head">
         <van-sticky>
           <div class="tab_wrap" :offset-top="30">
-            <div class="tab_item" :class="{ tab_active: tab == 1 }" @click="tab = 1">已挂单</div>
-            <div class="tab_item" :class="{ tab_active: tab == 2 }" @click="tab = 2">待付款</div>
-            <div class="tab_item" :class="{ tab_active: tab == 3 }" @click="tab = 3">待确认</div>
-            <div class="tab_item" :class="{ tab_active: tab == 4 }" @click="tab = 4">已完成</div>
+            <div class="tab_item" :class="{ tab_active: tab == 1 }" @click="tab = 1">银行卡</div>
+            <div class="tab_item" :class="{ tab_active: tab == 2 }" @click="tab = 2">微信</div>
+            <div class="tab_item" :class="{ tab_active: tab == 3 }" @click="tab = 3">支付宝</div>
           </div>
         </van-sticky>
       </div>
@@ -19,15 +18,6 @@
           <div class="title">
             <p class="title-t"><span></span> 订单编号：{{ item.id }}</p>
             <p>付款倒计时：{{ item.time }}</p>
-          </div>
-          <div>
-            <p>买家昵称：{{ item.nikeName }}</p>
-            <p>付款方式：{{ item.type }}</p>
-          </div>
-          <p style="color: #666;">买入数量： {{ item.num }}</p>
-          <div>
-            <p>价格：￥{{ item.price }}</p>
-            <p>总价：<span style="color:#4f75fe">￥{{ item.total }}</span></p>
           </div>
         </li>
       </ul>
@@ -65,24 +55,10 @@
           </div>
         </li>
       </ul>
-      <ul v-show="tab == 4" class="invite-content">
-         <li v-for="(item, index) in list" :key="index" @click="gotoDetails">
-          <div class="title">
-            <p class="title-t"><span></span> 订单编号：{{ item.id }}</p>
-            <p>付款倒计时：{{ item.time }}</p>
-          </div>
-          <div>
-            <p>买家昵称：{{ item.nikeName }}</p>
-            <p>付款方式：{{ item.type }}</p>
-          </div>
-          <p style="color: #666;">买入数量： {{ item.num }}</p>
-          <div>
-            <p>价格：￥{{ item.price }}</p>
-            <p>总价：<span style="color:#4f75fe">￥{{ item.total }}</span></p>
-          </div>
-        </li>
-      </ul>
     </div>
+     <div class="submit-box">
+        <van-button class="primary-btn" @click="onClick"> 添加提现账号 </van-button>
+      </div>
   </div>
 </template>
 
@@ -95,42 +71,55 @@ export default {
   data() {
     return {
       navData: {
-        title: this.$route.meta.title,
+       title: this.$route.meta.title,
         leftIcon: true,
+        rightText: '',
+        rightIcon: false,
       },
-      tab: 2,
-      list: [
+      tab: 1,
+       list: [
         {
-          id: '5435562839856',
-          time: '02:03:06',
-          nikeName: '李二狗',
-          type: '银行卡',
-          num: '12.00123 USDT',
-          price: '6.49',
-          total: '100',
+          id: '1',
+          name: '招商银行 2154520900361258',
+          address: '李二狗',
         },
         {
-          id: '5435562839856',
-          time: '02:03:06',
-          nikeName: '李二狗',
-          type: '银行卡',
-          num: '12.00123 USDT',
-          price: '6.49',
-          total: '100',
+           id: '1',
+          name: '招商银行 2154520900361258',
+          address: '李二狗',
+        },
+        {
+          id: '1',
+          name: '招商银行 2154520900361258',
+          address: '李二狗',
         },
       ],
+      flag: false,
+      delList: [],
     };
   },
   created() {
     if( this.$route.query.tab){
         this.tab = this.$route.query.tab
     }
+    if (this.flag == false && this.list.length > 0) {
+      this.navData.rightText = '编辑';
+    }
    
   },
   methods: {
     gotoDetails(){
        this.$router.push('/OrderDetails');
-    }
+    },
+    onClick(){},
+     clickRight() {
+      if (this.flag == true) {
+        this.onDel();
+      } else {
+        this.flag = true;
+        this.navData.rightText = '删除';
+      }
+    },
   },
 };
 </script>
