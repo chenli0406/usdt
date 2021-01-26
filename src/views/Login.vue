@@ -52,7 +52,9 @@ export default {
       passwoedIcon: require('@/assets/icons/password.png'),
     };
   },
-  created() {},
+  created() {
+    console.log(this.$store.state.userAgent);
+  },
   methods: {
     onClick() {
       if (!isMobilePhone(this.form.mobile, 'zh-CN')) {
@@ -179,6 +181,7 @@ export default {
 }
 .van-button--default{
   background-color: transparent;
+  border: none;
 }
 .van-button{
   line-height: 0px;

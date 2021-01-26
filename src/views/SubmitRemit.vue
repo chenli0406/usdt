@@ -38,7 +38,8 @@ export default {
       this.$router.push('/NoticeDetails');
     },
     onClick() {
-      this.$router.push('/Successfully');
+      // this.$router.push('/Successfully');
+      this.$router.push('/ApiSuccess')
     },
   },
 };
@@ -109,5 +110,6 @@ export default {
 ::v-deep .van-button--default {
   background: #4f75fe;
   color: #fff;
+  border: none;
 }
 </style>

@@ -6,14 +6,14 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     tabbarIndex: "",
-    applyOfWithdrawal: "",
+    userAgent: "",
   },
   mutations: {
     setTabbarIndex(state, data) {
       state.tabbarIndex = data;
     },
-    applyOfWithdrawal(state, data){
-      state.applyOfWithdrawal = data;
+    userAgent(state, data){
+      state.userAgent = data;
     }
   },
   actions: {},

@@ -10,6 +10,11 @@ import Vant from "vant";
 import 'lib-flexible';
 import { setStore, getStore, removeStore } from '@/utils/storage';
 
+require('vue-swipe/dist/vue-swipe.css');
+import { Swipe, SwipeItem } from 'vue-swipe';
+Vue.component('swipe', Swipe);
+Vue.component('swipe-item', SwipeItem);
+
 Vue.use(Vant);
 Vue.use(Toast);
 Vue.use(List);

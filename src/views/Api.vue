@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <div class="left-box" @click="$router.go(-1)"> 
-      <img src="../assets/icons/left.png">
+      <img  src="../assets/icons/left.png">
     </div>
     <div class="title">
       <p>充值金额：¥100.00</p>
@@ -174,6 +174,12 @@ export default {
   margin-top: -6px;
   left: 42%;
   z-index: 10;
+   @media screen and (min-width: 992px) {
+     left: 46%;
+  }
+  @media screen and (min-width: 1200px) {
+    left: 48%;
+  }
 }
 .title {
   color: #fff;
@@ -229,7 +235,7 @@ export default {
 .left-box{
   margin:10px 20px;
   img{
-    width: 10px;
+    width: 8px;
   }
 }
 </style>

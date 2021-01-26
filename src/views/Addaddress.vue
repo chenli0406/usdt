@@ -65,6 +65,9 @@ label {
   transform: translate(-50%,-100%);
   text-align: center;
   margin:  0 auto;
+   @media screen and (min-width: 1200px) {
+      width: 50%;
+    }
   .primary-btn {
     width: 100%;
     border-radius: 50px;
@@ -76,6 +79,7 @@ label {
   ::v-deep .van-button--default {
   background: #4f75fe;
   color: #fff;
+  border: none;
 }
 }
 

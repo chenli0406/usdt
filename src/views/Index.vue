@@ -3,21 +3,21 @@
     <nav-bar :nav-data="navData"></nav-bar>
     <div class="main-box">
       <div class="head-portrait">
-        <van-swipe :autoplay="13000">
-          <van-swipe-item v-for="(image, index) in images" :key="index">
-            <img class="swipe-img" v-lazy="image" />
-          </van-swipe-item>
-        </van-swipe>
+        <swipe :class=" userAgent =='pc'?'': '' " class="my-swipe" :auto="3000">
+          <swipe-item v-for="(image, index) in images" :key="index">
+            <img class="swipe-img" :src="image" />
+          </swipe-item>
+        </swipe>
       </div>
       <div class="msg-box">
         <ul class="msg" ref="con1" :class="{ anim: animate == true }">
           <li v-for="(item, index) in msgList" :key="index">
             <div>
-              <img style="width: 36px" src="../assets/icons/msg.png" />
+              <img class="img1" src="../assets/icons/msg.png" />
               <span @click="gotoNoticeDetails">{{ item.name }}</span>
             </div>
             <div style="margin: 20px 0px 20px 20px" @click="gotoNoticeList">
-              <img  style="width: 26px" src="../assets/icons/msg-list.png" />
+              <img class="img2" src="../assets/icons/msg-list.png" />
             </div>
           </li>
         </ul>
@@ -25,7 +25,7 @@
       <div class="img-btn">
         <van-row gutter="20">
           <van-col span="12">
-            <img src="../assets/img/1.png" />
+            <img src="../assets/img/1.png" @click="gotoDeal" />
           </van-col>
           <van-col span="12" @click="gotoFastMoney">
             <img src="../assets/img/2.png" />
@@ -59,23 +59,16 @@ export default {
         leftIcon: false,
         leftImg: require('@/assets/img/usdt-logo.png'),
       },
+      userAgent:'',
       animate: false,
       msgList: [{ name: '1关于本平台的一些服务说明' }, { name: '2关于本平台的一些服务说明' }, { name: '3关于本平台的一些服务说明' }],
     };
   },
   created() {
+    this.userAgent = this.$store.state.userAgent;
     setInterval(this.scroll, 2000);
   },
   methods: {
-    gotoMenu(val) {
-      this.$router.push(val);
-    },
-    gotoPersonal() {
-      this.$router.push('/PersonalData');
-    },
-    clickRight() {
-      this.$router.push('/Set');
-    },
     scroll() {
       this.animate = true;
       setTimeout(() => {
@@ -84,15 +77,18 @@ export default {
         this.animate = false;
       }, 500);
     },
-    gotoNoticeDetails(){
-       this.$router.push('/NoticeDetails');
+    gotoNoticeDetails() {
+      this.$router.push('/NoticeDetails');
     },
-    gotoNoticeList(){
-       this.$router.push('/NoticeList');
+    gotoNoticeList() {
+      this.$router.push('/NoticeList');
     },
-    gotoFastMoney(){
+    gotoFastMoney() {
       this.$router.push('/FastMoney');
-    }
+    },
+    gotoDeal() {
+      this.$router.push('/Deal');
+    },
   },
 };
 </script>
@@ -100,7 +96,7 @@ export default {
 .content {
   height: 100%;
   .head-portrait {
-    .van-swipe {
+    .my-swipe {
       height: 26vh;
     }
     .swipe-img {
@@ -108,20 +104,18 @@ export default {
       height: 100%;
       border-radius: 16px;
     }
-    .van-swipe__indicator--active {
+    ::v-deep .mint-swipe-indicators {
+       z-index: 9999;
+    }
+      ::v-deep .mint-swipe-indicator{
+       width: 14px;
+      height: 2px;
+      border-radius: 1px;
+    }
+    ::v-deep .mint-swipe-indicator.is-active {
       background: #4f75fe;
     }
   }
-}
-
-::v-deep .van-swipe__indicator {
-  width: 10px;
-  height: 2px;
-  border-radius: 2px;
-}
-
-::v-deep .van-swipe__indicators {
-  bottom: 10px;
 }
 
 .msg-box {
@@ -187,13 +181,25 @@ export default {
       margin-right: 10px;
     }
   }
-  .title-t{
-    color: #457BFE;
+  .title-t {
+    color: #457bfe;
   }
-   p{
-      line-height: 20px;
-      color: #333;
-      margin: 6px 0;
-    }
+  p {
+    line-height: 20px;
+    color: #333;
+    margin: 6px 0;
+  }
+}
+.img1 {
+  width: 20px;
+  @media screen and (min-width: 1200px) {
+    width: 24px;
+  }
+}
+.img2 {
+  width: 18px;
+  @media screen and (min-width: 1200px) {
+    width: 20px;
+  }
 }
 </style>

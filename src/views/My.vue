@@ -27,8 +27,8 @@
           </div>
          <div class="item">
             <span>2345.8 USDT</span>
-            <van-button class="primary-btn" @click="onClick"> 立即提现 </van-button>
-            <!-- <van-button class="primary-btn" @click="onClick"> 快速充币 </van-button> -->
+            <!-- <van-button class="primary-btn" @click="onClick"> 立即提现 </van-button> -->
+            <van-button class="primary-btn" @click="onClick"> 快速充币 </van-button>
          </div>
         </div>
       </div>

@@ -39,7 +39,7 @@
           <li v-for="(item, index) in options" :key="index">
             <p>{{ item.title }}</p>
             <p>
-              <span style="margin-right: 10px">{{ item.name }}</span> <img src="../assets/icons/order-1.png" />
+              <span style="margin-right: 10px">{{ item.name }}</span> <img src="../assets/icons/copy.png" @click="onCopyCode(item.name)" />
             </p>
           </li>
           <li>
@@ -52,14 +52,16 @@
         <van-button class="primary-btn" @click="onClick"> 确认已打款 </van-button>
       </div>
     </div>
-    <van-dialog v-model="show" title="卖家收款二维码" :close-on-click-overlay="true" showConfirmButton confirm-button-color="'#4F75FE'" confirm-button-text="保存二维码">
-      <img src="../assets/img/code.png" />
+    <van-dialog v-model="show" title="卖家收款二维码" :close-on-click-overlay="true" showConfirmButton @confirm="onSave" confirm-button-color="'#4F75FE'" confirm-button-text="保存二维码">
+      <img id="imageWrapper" src="../assets/img/code.png" />
     </van-dialog>
   </div>
 </template>
 
 <script>
 import NavBar from '../components/navBar/index';
+import clipboard from '../utils/clipboard';
+import html2canvas from 'html2canvas';
 export default {
   components: {
     NavBar,
@@ -107,39 +109,53 @@ export default {
     dialog() {
       this.show = true;
     },
+    onCopyCode(val) {
+      clipboard.handleClipboard(
+        val,
+        event,
+        () => {
+          this.$toast('复制成功');
+        },
+        () => {
+          this.$toast('复制失败');
+        }
+      );
+    },
+    onSave() {
+      html2canvas(document.getElementById('imageWrapper')).then((canvas) => {
+        let saveUrl = canvas.toDataURL('image/png');
+        let aLink = document.createElement('a');
+        let blob = this.base64ToBlob(saveUrl);
+        let evt = document.createEvent('HTMLEvents');
+        evt.initEvent('click', true, true);
+        aLink.download = '二维码.jpg';
+        aLink.href = URL.createObjectURL(blob);
+        aLink.click();
+      });
+    },
+    //这里把图片转base64
+    base64ToBlob(code) {
+      let parts = code.split(';base64,');
+      let contentType = parts[0].split(':')[1];
+      let raw = window.atob(parts[1]);
+      let rawLength = raw.length;
+      let uInt8Array = new Uint8Array(rawLength);
+      for (let i = 0; i < rawLength; ++i) {
+        uInt8Array[i] = raw.charCodeAt(i);
+      }
+      return new Blob([uInt8Array], { type: contentType });
+    },
   },
 };
 </script>
 <style lang="scss" scoped>
 .content {
   height: 100vh;
-  .head_box {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    .top-info {
-      display: flex;
-      align-items: center;
-    }
-    P {
-      margin: 6px 0;
-      font-size: 14px;
-      font-weight: 600;
-    }
-    .van-image {
-      border: 2px solid #4f75fe;
-      border-radius: 50%;
-    }
-    .right-img {
-      display: flex;
-      align-items: center;
-    }
-  }
-
+  overflow: hidden;
   .menu {
     margin-top: -40px;
-    height: 100vh;
     background: #f4f6f8;
+    height: 100vh;
     border-radius: 50px 50px 0px 0px;
     .menu-box {
       padding: 14px 20px;
@@ -148,6 +164,10 @@ export default {
       margin-top: 60px;
       background-color: #fff;
       .menu-item {
+        .van-image {
+          border: 2px solid #4f75fe;
+          border-radius: 50%;
+        }
         display: flex;
         align-items: center;
         .menu-title {
@@ -211,7 +231,16 @@ export default {
   }
 }
 .submit-box {
-  margin: 20px;
+  position: fixed;
+  top: 96%;
+  left: 50%;
+  width: 80%;
+  transform: translate(-50%, -100%);
+  text-align: center;
+  margin: 0 auto;
+  @media screen and (min-width: 1200px) {
+    width: 50%;
+  }
   .primary-btn {
     width: 100%;
     border-radius: 50px;
@@ -223,6 +252,7 @@ export default {
 ::v-deep .van-button--default {
   background: #4f75fe;
   color: #fff;
+  border: none;
 }
 
 .van-dialog {

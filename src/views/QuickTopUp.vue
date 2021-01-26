@@ -96,8 +96,9 @@ export default {
     },
     onCopyLink() {},
     onClick() {
-      this.$router.push('/ApiSuccess');
+      this.$router.push('/SubmitRemit');
     },
+
   },
 };
 </script>
@@ -244,6 +245,9 @@ export default {
   background-color: #4f75fe;
 }
 ::v-deep .van-nav-bar .van-nav-bar__title {
+  color: #fff !important;
+}
+::v-deep .van-nav-bar .van-icon{
   color: #fff !important;
 }
 </style>

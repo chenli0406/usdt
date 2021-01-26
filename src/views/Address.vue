@@ -176,6 +176,7 @@ export default {
     ::v-deep .van-button--default {
       background: #4f75fe;
       color: #fff;
+      border: none;
     }
   }
 }

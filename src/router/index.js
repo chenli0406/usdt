@@ -240,6 +240,17 @@ const routes = [{
       require(["@/views/Account"], resolve);
     }
   },
+  {
+    path: "/AddAccount",
+    name: "/AddAccount",
+    meta: {
+      title: "提现账号"
+    },
+    component: function (resolve) {
+      require(["@/views/AddAccount"], resolve);
+    }
+  },
+  
 ];
 const router = new VueRouter({
   routes

@@ -32,6 +32,7 @@
 
 <script>
 import { mapState } from 'vuex';
+import store from "@/store";
 export default {
   computed: {
     ...mapState(['tabbarIndex']),
@@ -58,8 +59,20 @@ export default {
     };
   },
   created() {
-    console.log(this.tabbarIndex);
   },
+  mounted(){
+    this.browserRedirect();
+  }, 
+  methods:{
+    browserRedirect() {
+        var sUserAgent = navigator.userAgent.toLowerCase();
+        if (/ipad|iphone|midp|rv:1.2.3.4|ucweb|android|windows ce|windows mobile/.test(sUserAgent)) {
+           store.commit("userAgent", "mobile");
+        } else {
+          store.commit("userAgent", "pc");
+      }
+    }
+  }
 };
 </script>
 
@@ -92,17 +105,17 @@ html,
     font-size: 12px;
   }
   @media screen and (min-width: 992px) {
-    font-size: 10px;
-     .van-dialog {
+    font-size: 12px;
+    margin: 0 60px;
+    .van-dialog {
       text-align: center;
       width: 50%;
       font-size: 14px;
     }
   }
   @media screen and (min-width: 1200px) {
-    font-size: 14px;
-    margin: 0 100px;
-    background-color: #f4f6f8;
+    font-size: 12px;
+    margin: 0 140px;
     .van-dialog {
       text-align: center;
       width: 40%;
@@ -153,7 +166,7 @@ html,
 ul {
   list-style: none;
 }
- .van-hairline--bottom::after{
-  border-bottom: none!important;
+.van-hairline--bottom::after {
+  border-bottom: none !important;
 }
 </style>

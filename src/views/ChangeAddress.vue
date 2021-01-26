@@ -14,9 +14,7 @@
                 <span>{{ item.name }}</span>
                 <p>{{ item.address }}</p>
               </div>
-              <div class="check"  @click="onSelectitem(index, item)" :class="{checked:index == checkedIndex}">
-              </div>
-
+              <div class="check" @click="onSelectitem(index, item)" :class="{ checked: index == checkedIndex }"></div>
             </div>
           </div>
           <div class="right-box"></div>
@@ -81,9 +79,9 @@ export default {
     },
     onSubmit() {
       if (this.account == '') {
-       this.$toast('请选择');
+        this.$toast('请选择');
       } else {
-         this.$router.push({name: '/FastMoney', params: { accountData: this.account }});
+        this.$router.push({ name: '/FastMoney', params: { accountData: this.account } });
       }
     },
     onSelectitem(index, val) {
@@ -155,6 +153,9 @@ export default {
     transform: translate(-50%, -100%);
     text-align: center;
     margin: 0 auto;
+    @media screen and (min-width: 1200px) {
+      width: 50%;
+    }
     .primary-btn {
       width: 100%;
       border-radius: 50px;
@@ -166,6 +167,7 @@ export default {
     ::v-deep .van-button--default {
       background: #4f75fe;
       color: #fff;
+      border: none;
     }
   }
 }

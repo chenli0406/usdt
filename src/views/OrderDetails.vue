@@ -42,6 +42,47 @@
         </li>
       </ul>
     </div>
+    <div class="img-box">
+      <p>打款截图凭证</p>
+      <ul>
+        <li v-for="(item, index) in list" :key="index">
+          <img :src="item" />
+        </li>
+      </ul>
+    </div>
+    <div class="submit-box">
+      <div class="box">
+        <van-button class="btn-1" @click="notShow = true"> 未收到款 </van-button>
+        <van-button class="btn-2" @click="submitShow = true"> 确认已收款 </van-button>
+      </div>
+    </div>
+    <van-dialog v-model="notShow" title="确认未收款"
+     :close-on-click-overlay="true" 
+    show-cancel-button
+     showConfirmButton 
+     showCancelButton
+     cancel-button-text="确定"
+     :confirm-button-color="'#999'" 
+     :cancel-button-color="'#fff'"
+     confirm-button-text="再等等"
+     @confirm="notConfirm"
+     @cancel="notCancel"
+      >
+      <p style="color: #999; font-size: 24px; padding: 0px 20px; text-align: center">部分交易方式到账可能延迟请多耐心等待一下。</p>
+    </van-dialog>
+    <van-dialog v-model="submitShow" title="确认收款" 
+    :close-on-click-overlay="true" 
+   show-cancel-button
+     showConfirmButton 
+     showCancelButton
+     @confirm="confirm"
+     @cancel="cancel"
+     cancel-button-text="确定"
+     :confirm-button-color="'#999'" 
+     :cancel-button-color="'#fff'"
+     confirm-button-text="再等等">
+      <p>确认收款后交易将完成。</p>
+    </van-dialog>
   </div>
 </template>
 
@@ -57,16 +98,28 @@ export default {
         title: this.$route.meta.title,
         leftIcon: true,
       },
+      notShow: false,
+      submitShow: false,
+      list: [require('../assets/img/4.png'), require('../assets/img/4.png'), require('../assets/img/4.png'), require('../assets/img/4.png')],
     };
   },
   created() {},
-  methods: {},
+  methods: {
+    onNot() {},
+    onSubmit() {},
+     notConfirm(){
+
+    },
+    notCancel(){
+      console.log("1");
+    },
+    confirm(){},
+    cancel(){}
+  },
 };
 </script>
 <style lang="scss" scoped>
 .content {
-  height: 100vh;
-  overflow: hidden;
   background-color: #f4f6f8;
   .main-box {
     background-color: #fff;
@@ -81,7 +134,7 @@ export default {
       font-weight: 600;
       padding: 6px 0;
     }
-   .title {
+    .title {
       color: #999;
       font-size: 11px;
     }
@@ -101,7 +154,126 @@ export default {
           color: #999;
         }
       }
+      li:last-child {
+        border: none;
+      }
     }
   }
+}
+.img-box {
+  margin: 20px;
+  p {
+    font-weight: 600;
+  }
+  ul {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding-bottom: 40px;
+    li {
+      width: 30%;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      @media screen and (min-width: 992px) {
+        width: 13%;
+      }
+      @media screen and (min-width: 1200px) {
+        width: 13%;
+      }
+      img {
+        width: 100%;
+      }
+    }
+  }
+  ul::after {
+    width: 30%;
+    content: '';
+    background-color: transparent;
+  }
+}
+
+.submit-box {
+  background: #fff;
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  @media screen and (min-width: 992px) {
+    width: 60%;
+  }
+  @media screen and (min-width: 1200px) {
+    width: 60%;
+  }
+  padding-top: 10px;
+  .box {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 20px;
+    text-align: center;
+    .btn-1 {
+      width: 40%;
+      border-radius: 50px;
+      height: 40px;
+      font-size: 12px;
+      font-weight: 600;
+      background: #febe53;
+      color: #fff;
+      box-shadow: 0px 6px 12px 0px rgba(254, 190, 83, 0.44);
+      @media screen and (min-width: 992px) {
+        width: 20%;
+      }
+      @media screen and (min-width: 1200px) {
+        width: 20%;
+      }
+    }
+    .btn-2 {
+      width: 50%;
+      border-radius: 50px;
+      height: 40px;
+      font-size: 12px;
+      font-weight: 600;
+      background: #4f75fe;
+      color: #fff;
+      box-shadow: 0px 6px 12px 0px rgba(79, 117, 254, 0.44);
+      @media screen and (min-width: 992px) {
+        width: 30%;
+      }
+      @media screen and (min-width: 1200px) {
+        width: 40%;
+      }
+    }
+  }
+}
+::v-deep .van-button--default {
+  background: #4f75fe;
+  color: #fff;
+  border: none;
+}
+.van-dialog {
+  text-align: center;
+  width: 70%;
+  font-size: 14px;
+}
+::v-deep .van-dialog__footer {
+  display: block;
+  margin: 10px auto;
+  padding:0 40px;
+  .van-button{
+    height: 34px;
+  }
+}
+::v-deep .van-dialog__content{
+   margin: 20px 40px;
+}
+::v-deep .van-dialog__cancel{
+  border-radius: 60px;
+  background: #4f75fe;
+  margin-bottom: 10px;
+}
+::v-deep  .van-dialog__confirm{
+font-size: 14px;
+  background: transparent;
+}
+::v-deep .van-hairline--top::after{
+  border: none!important;
 }
 </style>
